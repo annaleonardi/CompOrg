@@ -21,12 +21,12 @@ main:
    ADD sp sp, #4
 
 # Convert 
-   BL Ft2Inches
-   MOV r1, r0
+   BL Ft2Inches // call Ft2Inches to calculate
+   MOV r1, r0 // move value to r1 so it can print it 
 
 # Print inches
    LDR r0, =format1
-   BL printf
+   BL printf // print r0
 
 # Return to the OS
    LDR lr, [sp, #0]
@@ -35,7 +35,7 @@ main:
 
 
 .data
-   prompt1: .asciz "enter the length in feet you want in inches: \n"
+   prompt1: .asciz "Enter the length in feet you want in inches: \n"
    format1: .asciz "\nThe length in inches is %d\n"
    input1: .asciz "%d"
    num1: .word 0

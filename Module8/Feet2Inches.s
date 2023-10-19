@@ -18,7 +18,7 @@ main:
    MOV r1, sp
    BL scanf
    LDR r0, [sp, #0]
-   ADD sp sp, #4
+   ADD sp, sp, #4
 
 # Convert 
    BL Ft2Inches // call Ft2Inches to calculate

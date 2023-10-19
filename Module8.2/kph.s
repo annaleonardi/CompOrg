@@ -1,5 +1,7 @@
 # kph.s
 # An assembly program to convert distance from miles to kilometers per hour
+.global hours
+.global miles
 
 .text
 .global main
@@ -27,10 +29,10 @@ main:
    BL scanf
 
    #Convert
-   LDR r0, =hours
-   LDR r0, [r0]
-   LDR r1, =miles
-   LDR r1, [r1]
+  // LDR r0, =hours
+  // LDR r0, [r0]
+  // LDR r1, =miles
+  // LDR r1, [r1]
    BL kph
   // MOV r2, r1
    MOV r1, r0

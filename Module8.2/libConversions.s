@@ -32,10 +32,12 @@ kph:
    STR lr, [sp, #0]
 
    #Convert kilometers to kilometers per hour
-   MOV r2, r0 
-   MOV r0, r1
+   LDR r0, =miles
+   LDR r0, [r0]
    BL miles2kilometer
-   MOV r2, r1
+   MOV r1, r0
+   LDR r0, =hours
+   LDR r0, [r0]
    BL __aeabi_idiv
 
    #pop stack

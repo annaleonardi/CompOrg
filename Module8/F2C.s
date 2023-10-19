@@ -18,7 +18,7 @@ main:
    LDR r0, =input1
    SUB sp, sp, #4
    MOV r1, sp
-   BL scantf
+   BL scanf
    LDR r0, [sp, #0]
    ADD sp, sp, #4
 
@@ -37,6 +37,6 @@ main:
 
 .data
    prompt1: .asciz "Enter the temp in F: \n"
-   forma1: .asciz "\nThe temp in C is: %d\n"
+   format1: .asciz "\nThe temp in C is: %d\n"
    input1: .asciz "%d"
    num1: .word 0   

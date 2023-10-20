@@ -1,6 +1,7 @@
 .global miles2kilometer
 .global kph
 .global CToF
+.global InchesToFt
 .global miles
 .global hours
 .global num1
@@ -85,3 +86,25 @@ CToF:
 .data
 
 #End CToF
+
+
+
+.text
+
+InchesToFt:
+   #push the stack
+   SUB sp, sp, #4
+   STR lr, [sp, #0]
+
+   #Convert inches to feet
+   MOV r1, #12
+   BL __aeabi_idiv
+
+   #pop the stack
+   LDR lr, [sp]
+   ADD sp, sp, #4
+   MOV pc, lr
+
+.data
+
+#END Ft2Inches

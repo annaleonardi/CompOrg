@@ -2,6 +2,7 @@
 .global kph
 .global miles
 .global hours
+.global num1
 
 .text
 
@@ -22,6 +23,7 @@ miles2kilometer:
    MOV pc, lr
 
 .data
+   num1: .word 0
 #END miles2kilometer
 
 
@@ -35,10 +37,10 @@ kph:
 
    #Convert kilometers to kilometers per hour
    LDR r0, =miles
-   BL miles2kilometer
    LDR r0, [r0]
+   BL miles2kilometer
    LDR r1, =hours
-   LDR r1, r1
+   LDR r1, [r1]
    BL __aeabi_idiv
 
    #pop the stack
@@ -47,4 +49,6 @@ kph:
    MOV pc, lr
 
 .data
+   miles: .word 0
+   hours: .word 0
 #END kph

@@ -1,12 +1,23 @@
-All: miles2kilometer kph
-LIB=libConversions.o
-CC=gcc
+
+# Makefile for ARM Assembly Programs
+
+LIB = libConversions.s
+KPH = kph.s
+
+CC = gcc
+AS = as
+
+all: miles2kilometer kph
 
 miles2kilometer: miles2kilometer.o $(LIB)
-	$(CC) $@.o $(LIB) -g -o $@
+	$(CC) -o $@ miles2kilometer.o $(LIB)
 
 kph: kph.o $(LIB)
-	$(CC) $@.o $(LIB) -g -o $@
+	$(CC) -o $@ kph.o $(LIB)
 
-.s.o:
-	$(CC) $(@:.o=.s) -g -c -o $@
+%.o: %.s
+	$(AS) -g -o $@ $<
+
+clean:
+	rm -f miles2kilometer kph *.o
+

@@ -44,5 +44,5 @@ main:
    prompt1: .asciz "Enter the distance in miles that you want comverted to kilometers: \n"
    format1: .asciz "\nThe distance in kilometers is: %d\n"
    input1: .asciz "%d"
-   num1: .word 0
+
 

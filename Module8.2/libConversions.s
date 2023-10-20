@@ -1,5 +1,6 @@
 .global miles2kilometer
 .global kph
+.global CToF
 .global miles
 .global hours
 .global num1
@@ -13,9 +14,8 @@ miles2kilometer:
 
    #Convert miles to kilometers
    MOV r2, r0
-   MOV r0, r2
    MOV r1, #161
-   MUL r0, r0, r1
+   MUL r0, r2, r1
    MOV r1, #100
    BL __aeabi_idiv
 
@@ -54,3 +54,36 @@ kph:
    miles: .word 0
    hours: .word 0
 #END kph
+
+
+
+.text
+
+CToF:
+   #push the stack
+   SUB sp, sp, #4
+   STR lr, [sp, #0]
+
+   #Convert celsius to farenheight
+   MOV r4, r0
+   MOV r1, #5
+   MOV r0, #9
+   BL __aeabi_idiv
+   MOV r5, r0
+   MOV r0, r5
+   MUL r0, r4, r0
+   MOV r3, #32
+   ADD r0, r0, r3
+   // result will be in r0
+
+   # garbage code to illustrate something in lecture
+   ADD r3, r3, r3
+
+   #pop stack
+   LDR lr, [sp]
+   ADD sp, sp, #4
+   MOV pc, lr
+
+.data
+
+#End CToF

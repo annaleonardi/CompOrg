@@ -27,7 +27,12 @@ main:
    BL scanf
 
    #Convert
- 
+   LDR r0, =miles
+   LDR r0, [r0]
+   LDR r1, =hours
+   LDR r1, [r1]
+   ADD r4, r4, r5
+   ADD r6, r6, r7
    BL kph
    MOV r1, r0
 

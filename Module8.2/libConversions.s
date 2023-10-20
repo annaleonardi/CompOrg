@@ -12,6 +12,8 @@ miles2kilometer:
    STR lr, [sp, #0]
 
    #Convert miles to kilometers
+   MOV r2, r0
+   MOV r0, r2
    MOV r1, #161
    MUL r0, r0, r1
    MOV r1, #100

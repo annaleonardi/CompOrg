@@ -1,4 +1,3 @@
-
 # Makefile for ARM Assembly Programs
 
 LIB = libConversions.s
@@ -9,15 +8,21 @@ AS = as
 
 all: miles2kilometer kph
 
-miles2kilometer: miles2kilometer.o $(LIB)
-	$(CC) -o $@ miles2kilometer.o $(LIB)
+miles2kilometer: miles2kilometer.o libConversions.o
+	$(CC) -o $@ miles2kilometer.o libConversions.o
 
-kph: kph.o $(LIB)
-	$(CC) -o $@ kph.o $(LIB)
+kph: kph.o libConversions.o
+	$(CC) -o $@ kph.o libConversions.o
+
+libConversions.o: $(LIB)
+	$(AS) -g -o $@ $(LIB)
 
 %.o: %.s
 	$(AS) -g -o $@ $<
 
 clean:
-	rm -f miles2kilometer kph *.o
+	rm -f miles2kilometer kph libConversions.o *.o
+
+
+
 

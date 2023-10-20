@@ -67,11 +67,9 @@ CToF:
    #Convert celsius to farenheight
    MOV r4, r0
    MOV r1, #5
-   MOV r0, #9
+   MOV r6, #9
+   MUL r0, r4, r6
    BL __aeabi_idiv
-   MOV r5, r0
-   MOV r0, r5
-   MUL r0, r4, r0
    MOV r3, #32
    ADD r0, r0, r3
    // result will be in r0

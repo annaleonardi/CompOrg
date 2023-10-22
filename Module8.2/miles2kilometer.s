@@ -1,5 +1,9 @@
-# miles2kilometer.s
-# An assembly program to convert distance from miles to kilometers
+#
+# File Name: miles2kilometer.s
+# Author: Anna Leonardi
+# Date: 10/21/2023
+# Purpose: An assembly program to convert distance from miles to kilometers
+#
 
 .text
 .global main
@@ -9,31 +13,24 @@ main:
    STR lr, [sp, #0]
 
    #prompt for value
-   LDR r0, =prompt1
-   BL printf
+   LDR r0, =prompt1  //load input prompt into r0 so it can be printed
+   BL printf  //print input prompt stored in r0
 
    #read value from user
-   LDR r0, =input1
-  // LDR r1, =num1
-   SUB sp, sp, #4
-   MOV r1, sp
-   BL scanf
-   LDR r0, [sp, #0]
-   ADD sp, sp, #4
+   LDR r0, =input1  //load input value into r0
+   SUB sp, sp, #4  //free 4 bites on the stack pointer
+   MOV r1, sp  //store stack pointer in r1
+   BL scanf  //read input value stored in r0
+   LDR r0, [sp, #0]  //load stack pointer to r0
+   ADD sp, sp, #4  //add space back to stack pointer
 
-   #Convert to celsius
-  // LDR r0, =num1
-  // LDR r0, [r0]
-   BL miles2kilometer
-  // MOV r1, #161
-  // MUL r0, r0, r1
-  // MOV r1, #100
-  // BL __aeabi_idiv
-   MOV r1, r0
+   #Convert to kilometers 
+   BL miles2kilometer  //call miles2kilometer function, input value in r0
+   MOV r1, r0  //store r0 safely in r1
 
    #print the output
-   LDR r0, =format1
-   BL printf
+   LDR r0, =format1  //load string format in r0
+   BL printf  //print string format in r0 and converted input value in r1
 
    #pop the stack
    LDR lr, [sp, #0]

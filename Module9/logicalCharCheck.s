@@ -21,8 +21,14 @@ main:
    LDR r1, =character
    BL scanf
    
+#
 
+#  Check
+   MOV r2, #0  //all bits are 0
+   CMP r1, #0x41
+	ADDGE r2, #1   //if true, bit 0 is changed to 1
 
+   MOV r3, #0
    CMP r1, #0x5A
 	ADDLE r3, #1
 

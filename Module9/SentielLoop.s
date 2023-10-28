@@ -27,9 +27,30 @@ main:
         LDR r1, [r1]
 
         CMP r1, #-1
-        B endLoop
+        BEQ endLoop
 
             # statement or block to execute
+            MOV r3, #0
+            CMP r1, #0 
+            ADDGT r3, r3, #1  //if r1 greater than 0 r3 will become 1
+
+            MOV r4, #0
+	    CMP r1, #100
+	    ADDLT r4, r4, #1
+	    AND r0, r3, r4 //will give logical value wether it is between 0 and 100
+
+	    CMP r0, #1
+      	    BNE elseError //if not true
+		LDR r0, =output
+		BL printf
+
+		B endError //ALWAYS put at end of if or elseif a branch to endError
+
+   	    elseError:
+		LDR r0, =error
+		BL printf
+ 
+ 	    endError:
 
         # GetNext value
         LDR r0, =prompt
@@ -37,10 +58,11 @@ main:
         LDR r0, =format
         LDR r1, =number
         BL scanf
+        B startLoop //go back to start of loop
 
    endLoop:
-
-
+	LDR r0, =ending
+	BL printf
 
 #  Pop stack
    LDR lr, [sp]

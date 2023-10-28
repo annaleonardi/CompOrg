@@ -21,7 +21,8 @@ main:
    LDR r1, =character
    BL scanf
    
-#  Check 
+#  Check
+   MOV r8, r1 
 
 #  (if char > 0x41)
    MOV r2, #0  //all bits are 0
@@ -37,11 +38,11 @@ main:
 
    MOV r0, #0
    CMP r1, #0x61
-	ADDGE r3, #1
+	ADDGE r0, #1
 
    MOV r3, #0
    CMP r1, #0x7A
-	ADDLE r0, #1
+	ADDLE r3, #1
 
    AND r3, r3, r0  //results from second AND, if true r1 is lowercase
    ORR r2, r2, r3  //results from OR, if true r1 is a character
@@ -51,16 +52,21 @@ main:
    CMP r2, r0
 	BGT Else
 	#code block for if not char
-	LDR r0, 
+	LDR r0, =formatNotChar
+	BL printf
+        B EndIf 
 
    Else:
 	#Code block for else char 
-   
+	LDR r0, =formatChar
+	BL printf
+
+EndIf:   
 
 #  print the output
-   LDR r0, =format //fix in BL function
-   LDR r1, =character
-   BL printf
+#   LDR r0, =format //fix in BL function
+#   LDR r1, =character
+#   BL printf
 
 #  pop stack
    LDR lr, [sp, #0]

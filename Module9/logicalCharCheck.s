@@ -21,18 +21,19 @@ main:
    LDR r1, =character
    BL scanf
    
-#
+#  Check 
 
-#  Check
+#  (if char > 0x41)
    MOV r2, #0  //all bits are 0
    CMP r1, #0x41
 	ADDGE r2, #1   //if true, bit 0 is changed to 1
 
+#  (if char < 0x5A)
    MOV r3, #0
    CMP r1, #0x5A
 	ADDLE r3, #1
 
-   ADD r2, r2, r3  //results from first AND, if true r1 is uppercase
+   AND r2, r2, r3  //results from first AND, if true r1 is uppercase
 
    MOV r0, #0
    CMP r1, #0x61
@@ -42,8 +43,18 @@ main:
    CMP r1, #0x7A
 	ADDLE r0, #1
 
-   AND r3, r3, r0  //results from seconf AND, if true r1 is lowercase
+   AND r3, r3, r0  //results from second AND, if true r1 is lowercase
    ORR r2, r2, r3  //results from OR, if true r1 is a character
+
+   #if r2 = 1 -> char, else not char
+   MOV r0, #0
+   CMP r2, r0
+	BGT Else
+	#code block for if not char
+	LDR r0, 
+
+   Else:
+	#Code block for else char 
    
 
 #  print the output
@@ -64,7 +75,7 @@ main:
    input: .asciz "%s"
 
 #  format of the program output
-   format: .asciz "\n The character you entered is %s\n"
+   format: .asciz "\nThe character you entered is %s\n"
    formatChar: .asciz "\n The character  you entered is an alphabetical value\n"
    formatNotChar: .asciz "\n The character entered is NOT an alphabetical value\n"
 

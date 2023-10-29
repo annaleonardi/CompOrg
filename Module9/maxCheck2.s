@@ -71,14 +71,22 @@ findMax:
    MOV r0, #0
    CMP r1, r2
    BLE secondCheck
-   	MOVGT r2, r1
-	B secondCheck
+   #	MOV r2, r1
+	B firstCheck
 
+   firstCheck:
+	CMP r1, r3
+	BLE thirdCheck
+	   LDR r0, =output
+	   LDR r1, =num1
+	   LDR r1, [r1]
+	   BL printf
+	   B endIf
    secondCheck:
 	CMP r2, r3
 	BLE thirdCheck
 	   LDR r0, =output
-	   LDR r1, =num2
+  	   LDR r1, =num2
 	   LDR r1, [r1]
 	   BL printf
 	   B endIf

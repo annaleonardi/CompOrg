@@ -2,7 +2,7 @@
 # File Name: charCheck2.s
 # Author: Anna Leonardi
 # Date: 10/29/2023
-# Purpose: An assembly program to to check if a user input value is a alphabetic character or not 
+# Purpose: An assembly program to check if a user input value is a alphabetic character or not 
 #	  by determining if it is a lower or uppercase letter
 #
 .text

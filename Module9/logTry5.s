@@ -4,14 +4,14 @@ main:
    SUB sp, sp, #4
    STR lr, [sp]
 
-   #Prompt for and read grade
+   #Prompt for and read char
    LDR r0, =prompt
-   BL printf
-   LDR r1, =grade
+   BL printif
+   LDR r1, =char
    BL scanf
 
-   #print grade (grade in r0)
-   LDR r0, =grade
+   #print char (char in r0)
+   LDR r0, =char
    LDR r0, [r0]
    BL printGrades
 
@@ -20,9 +20,9 @@ main:
    MOV pc, lr
 
 .data
-   prompt: .asciz "\nEnter a grade between 0-100: "
-   format: .asciz "%d"
-   grade: .word 0
+   prompt: .asciz "\nEnter any character: "
+   format: .asciz "%s"
+   char: .space 40
 
 # END main
 
@@ -40,12 +40,13 @@ printGrades:
 
    #code for print grades function
    MOV r0, #0
-   CMP r4, #0
+   CMP r4, #'A'
    ADDGE r0, r0, #1 //if greater or equal to 0 make it true by making it 1
    MOV r1, #0
-   CMP r4, #100
-   #ADDLE r1, r1, #1 // if GE to 100 turn r1 to true by adding 1
-   ORR r0, r0, r1 //r0 now has the value if grad is between 0 and 100
+   CMP r4, #'Z'
+  # ADDLE r1, r1, #1 // if GE to 100 turn r1 to true by adding 1
+
+   AND r0, r0, r1 //r0 now has the value if grad is between 0 and 100
 
    #if test if grade is not valid
    CMP r1, #1 //if false it was not a valide grade then branch not equal to ErrorMsg
@@ -55,8 +56,8 @@ printGrades:
    ErrorMsg: //otherwise print error message
       #Print if grade is invalid
       LDR r0, =error
-      BL printf
-   EndError:
+      BL printif
+   EndError
 
    #pop stack
    LDR lr, [sp]

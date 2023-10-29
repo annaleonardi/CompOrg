@@ -15,28 +15,23 @@ main:
 
     CMP r1, #'A'
     BLT NotChar
+    CMP r1, #'Z'
+	    BLE IsChar
+    CMP r1, #'a'
+    BLT NotChar
     CMP r1, #'z'
     BGT NotChar
-    B CheckLowercase
 
-    CheckLowercase:
-    CMP r1, #'Z'
-    BGT IsChar
-    CMP r1, #'a'
-    BLT IsChar
+IsChar:
+    LDR r0, =formatChar
+    BL printf
+    B EndIf
 
-    IsChar:
-	LDR r0, =formatChar
-	BL printf
-	B EndIf
+NotChar:
+    LDR r0, =formatNotChar
+    BL printf
 
-    NotChar:
-	LDR r0, =formatNotChar
-	BL printf
-	B EndIf
-
-    EndIf:
-
+EndIf:
     LDR lr, [sp]
     ADD sp, sp, #4
     MOV pc, lr
@@ -45,6 +40,6 @@ main:
 prompt: .asciz "Enter any character: \n"
 input: .asciz "%s"
 formatChar: .asciz "\nThe character you entered is an alphabetical value\n"
-formatNotChar: .asciz "\n The character entered is NOT an alphabetical value\n"
+formatNotChar: .asciz "\nThe character entered is NOT an alphabetical value\n"
 character: .space 40
 

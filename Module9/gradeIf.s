@@ -7,6 +7,7 @@ main:
    #Prompt for and read grade
    LDR r0, =prompt
    BL printf
+   LDR r0, =format
    LDR r1, =grade
    BL scanf
 

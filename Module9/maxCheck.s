@@ -51,14 +51,14 @@ main:
 	CMP r2, r3
 	BLE thirdCheck
 	   LDR r0, =output
-	   LDR r1, =r2
+	   LDR r1, r2
 	   LDR r1, [r1]
 	   BL printf
 	   B endIf
 
-   thridCheck:
+   thirdCheck:
 	LDR r0, =output
-	LDR r1, =r3
+	LDR r1, r3
 	LDR r1, [r1]
 	BL printf
 	B endIf

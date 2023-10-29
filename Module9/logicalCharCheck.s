@@ -22,6 +22,7 @@ main:
    BL scanf
    
 #  Check
+   LDR r1, =character
    MOV r8, r1 
 
 #  (if char > 0x41)
@@ -29,17 +30,19 @@ main:
    CMP r1, #0x41
 	ADDGE r2, #1   //if true, bit 0 is changed to 1
 
-#  (if char < 0x5A)
+#  (if char < 0x5a)
    MOV r3, #0
    CMP r1, #0x5A
 	ADDLE r3, #1
 
    AND r2, r2, r3  //results from first AND, if true r1 is uppercase
 
+#  (if char > 0x61
    MOV r0, #0
    CMP r1, #0x61
 	ADDGE r0, #1
 
+#  (if char < 0x7a)
    MOV r3, #0
    CMP r1, #0x7A
 	ADDLE r3, #1

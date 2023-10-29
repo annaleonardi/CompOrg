@@ -17,7 +17,12 @@ main:
     BLT NotChar
     CMP r1, #'z'
     BGT NotChar
- 	# if A < r1 < Z
+    CMP r1, #'Z'
+    BGT IsChar
+    CMP r1, #'a'
+    BLT IsChar
+
+    IsChar:
 	LDR r0, =formatChar
 	BL printf
 	B EndIf

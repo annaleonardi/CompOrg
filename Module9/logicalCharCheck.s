@@ -11,6 +11,8 @@ main:
 #  push stack
    SUB sp, sp, #4
    STR lr, [sp]
+   STR r8, [sp, #4]
+   STR r3, [sp, #4]
 
 #  prompt for character
    LDR r0, =prompt
@@ -27,25 +29,25 @@ main:
 
 #  (if char > 0x41)
    MOV r2, #0  //all bits are 0
-   CMP r1, #0x41
-	ADDGE r2, #1   //if true, bit 0 is changed to 1
+   CMP r8, #'A'
+	MOVGE r2, #1   //if true, bit 0 is changed to 1
 
 #  (if char < 0x5a)
    MOV r3, #0
-   CMP r1, #0x5A
-	ADDLE r3, #1
+   CMP r8, #'Z'
+	MOVLE r3, #1
 
    AND r2, r2, r3  //results from first AND, if true r1 is uppercase
 
 #  (if char > 0x61
-   MOV r0, #0
-   CMP r1, #0x61
-	ADDGE r0, #1
+   MOV r3, #0
+   CMP r1, #'a'
+	MOVGE r3, #1
 
 #  (if char < 0x7a)
-   MOV r3, #0
-   CMP r1, #0x7A
-	ADDLE r3, #1
+   MOV r0, #0
+   CMP r1, #'z'
+	MOVLE r0, #1
 
    AND r3, r3, r0  //results from second AND, if true r1 is lowercase
    ORR r2, r2, r3  //results from OR, if true r1 is a character
@@ -73,7 +75,9 @@ EndIf:
 
 #  pop stack
    LDR lr, [sp, #0]
-   ADD sp, sp, #4
+   LDR r8, [sp, #4]
+   LDR r3, [sp, #4]
+   ADD sp, sp, #12
    MOV pc, lr
 
 .data
@@ -90,7 +94,6 @@ EndIf:
 
 #  reserves space in the memory for input
    character: .space 40
-
 
 
 #  END main

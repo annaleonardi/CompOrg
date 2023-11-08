@@ -25,14 +25,52 @@ main:
 		BLE ElseInvalid
 		   # If block, determine if prime
 		   # initialize loop,
-		   
+		   # r0 - counter
+		   # r4 - number from user
+		   # r5 - start at 3
+		   # r6 - for dividing by 2
+		   # r7 - remainder
+		   # r8 - end of division (num from user / 2)
+		   MOV r5, #3
+		   MOV r6, #2
+		   MOV r7, #0
+		   MOV r8, r4, LSR #1
 
-		   # B EndInputCheck
+			StartCountingLoop:
+			CMP r6, r8
+			BGT EndCountingLoop
 
-		ElseInvalid:
-		   # Else block
+			   # Loop Block
+			   MOV r0, r4
+			   MOV r1, r6
+			   BL __aeabi_idivmod
+			   MOV r7, r1
+
+			   CMP r7, #0
+			   BEQ notPrime
+
+			   # Get next value
+			   ADD r6, r6, #1
+
+			   B StartCountingLoop
+
+			EndCountingLoop:
+			LDR r0, =prime
+			LDR r1, =num
+			BL printf
+
+		B EndInputCheck
+
+			ElseInvalid:
+		   	# Else block, print bad input
+			LDR r0, =badInput
+			BL printf
 
 		EndInputCheck:
+		   # Print not prime
+		   LDR r0, =notPrime
+		   LDR r1, =num
+		   BL printf
 
 	   # get next value
 	   LDR r0, =prompt
@@ -46,6 +84,7 @@ main:
 	   B StartSentinelLoop
 
    EndSentinelLoop:
+
 	LDR lr, [sp, #0]
 	ADD sp, sp, #4
 	MOV pc, lr
@@ -53,6 +92,8 @@ main:
 
 .data
    prompt: .asciz "Please enter a number (-1 to end) \n"
-   output: .asciz "You entered %d\n"
+   prime:  .asciz "Number %d is prime\n"
+   notPrime: .asciz "Number %d is NOT prime \n"
+   badInput: .asciz "The number you entered in not valid"
    input:  .asciz "%d"
    num:    .word 0

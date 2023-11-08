@@ -26,7 +26,7 @@ main:
 
 # Print inches
    LDR r0, =format1
-   BL printf // print r0
+   BL printf 
 
 # Return to the OS
    LDR lr, [sp, #0]

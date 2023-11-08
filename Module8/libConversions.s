@@ -1,5 +1,7 @@
 .global Ft2Inches
 .global F2C
+.global miles2kilometer
+
 
 .text
 F2C:
@@ -17,9 +19,6 @@ F2C:
    BL __aeabi_idiv
    // result will be in r0
 
-   # garbage code to illustrate something in lecture
-   ADD r3, r3, r3
-
    #pop stack
    LDR lr, [sp]
    ADD sp, sp, #4
@@ -29,16 +28,50 @@ F2C:
 
 #End F2C
 
+
+
 .text
 
 Ft2Inches:
-   //input r0 output r0
+
+   # push stack
+   SUB sp, sp, #4
+   STR lr, [sp]
+
    # Convert feet to inches
    MOV r1, #12
-   MUL r0, r0, r1
-
-	   MOV pc, lr
+   MUL r0, r0, r1 // input will be in r0 and output will be in r0
+  
+   # pop stack
+   LDR lr, [sp]
+   ADD sp, sp, #4
+   MOV pc, lr
 
 .data
 
 #END Ft2Inches
+
+
+
+.text
+
+miles2kilometer:
+
+   # push stack
+   SUB sp, sp, #4 // free up 4 bites on stack pointer to save link registers
+   STR lr, [sp] // store stack pointer in link register
+
+   # Convert miles to kilometers (miles * 161 / 100)
+   MOV r1, #161
+   MUL r0, r0, r1
+   MOV r1, #100
+   BL __aeabi_idiv
+
+   # pop stack
+   LDR lr, [sp]
+   ADD sp, sp, #4
+   MOV pc, lr
+
+.data
+
+#END miles2kilometer

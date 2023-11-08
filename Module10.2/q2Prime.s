@@ -54,9 +54,18 @@ main:
 
 			   B StartCountingLoop
 
+			notPrime:
+			LDR r0, =NotPrime
+			LDR r1, =num
+			LDR r1, [r1]
+			BL printf
+
+		B EndInputCheck
+
 			EndCountingLoop:
 			LDR r0, =prime
 			LDR r1, =num
+			LDR r1, [r1]
 			BL printf
 
 		B EndInputCheck
@@ -64,6 +73,7 @@ main:
 			ElseInvalid:
 		   	# Else block, print bad input
 			LDR r0, =badInput
+			LDR r1, [r1]
 			BL printf
 
 		EndInputCheck:
@@ -88,8 +98,8 @@ main:
 
 .data
    prompt: .asciz "Please enter a number (-1 to end) \n"
-   prime:  .asciz "Number %d is prime\n"
-   notPrime: .asciz "Number %d is NOT prime \n"
-   badInput: .asciz "The number you entered in not valid"
+   prime:  .asciz "Number %d is prime\n\n"
+   NotPrime: .asciz "Number %d is NOT prime\n\n"
+   badInput: .asciz "The number you entered in not valid\n\n"
    input:  .asciz "%d"
    num:    .word 0

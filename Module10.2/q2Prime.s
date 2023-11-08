@@ -67,10 +67,6 @@ main:
 			BL printf
 
 		EndInputCheck:
-		   # Print not prime
-		   LDR r0, =notPrime
-		   LDR r1, =num
-		   BL printf
 
 	   # get next value
 	   LDR r0, =prompt

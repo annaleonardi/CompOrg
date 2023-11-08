@@ -4,8 +4,6 @@ main:
    SUB sp, sp, #4
    STR lr, [sp, #0]
 
-   #MOV r0, #-0x32
-
    # initialize by prompting user, answer in r4
    LDR r0, =prompt
    BL printf
@@ -21,9 +19,20 @@ main:
 	BEQ EndSentinelLoop
 
 	   # Loop block
-	   LDR r0, =output
-	   MOV r1, r4
-	   BL printf
+		# Input Check
+		MOV r0, #2
+		CMP r4, r0
+		BLE ElseInvalid
+		   # If block, determine if prime
+		   # initialize loop,
+		   
+
+		   # B EndInputCheck
+
+		ElseInvalid:
+		   # Else block
+
+		EndInputCheck:
 
 	   # get next value
 	   LDR r0, =prompt

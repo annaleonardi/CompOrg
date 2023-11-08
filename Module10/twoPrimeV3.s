@@ -1,3 +1,9 @@
+#
+# File Name: twoPrimeV3.s
+# Author: Anna Leonardi
+# Date: 11/5/2023
+# Purpose: An assembly program to prompt the user for a number, and determine if that number is prime
+#
 .text
 .global main
 main:

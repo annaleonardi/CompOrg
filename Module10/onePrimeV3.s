@@ -1,3 +1,9 @@
+#
+# File Name: onePrimeV3.s
+# Author: Anna Leonardi
+# Date: 11/5/2023
+# Purpose: An assembly program to find prime numbers from 3 to 100 (n) in a loop by dividing the number n by all numbers from 2..n/2 in an inner loop
+#
 .text
 .global main
 

@@ -13,7 +13,7 @@ main:
    LDR r0, =promptN
    BL printf
    LDR r0, =format
-   LDR r2, =n
+   LDR r1, =n
    BL scanf
 
    LDR r0, =m
@@ -61,9 +61,11 @@ Mult:
 
    # else
    Else:
-	SUB r0, r5, #1  //next value in r0
+	SUB r1, r5, #1  //next value in r0
+	ADD r6, r4, r6 //store in r0 m plus m
 	BL Mult  //return value in r0
-	ADD r0, r4, r4  //store in r0 what came back from the sum program plus r4
+	#ADD r0, r4, r6
+	MOV r0, r6
 	B Return
 
 	Endif:  //never used but still putting it in code for stuctured code

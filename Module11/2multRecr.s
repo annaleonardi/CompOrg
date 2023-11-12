@@ -21,7 +21,7 @@ main:
    LDR r1, =n
    LDR r1, [r1]
    BL Mult
-   #MOV r1, r0
+   MOV r1, r0
 
    LDR r0, =output
    BL printf
@@ -32,8 +32,8 @@ main:
 
 .data
    promptM: .asciz "\nEnter a number to multiply: "
-   promptN: .asciz "\nEnter a how many times to multiply: "
-   output: .asciz "\nYour result is %d\n"
+   promptN: .asciz "\nEnter how many times to multiply the number by: "
+   output: .asciz "\nYour result is: %d\n"
    format: .asciz "%d"
    m: .word 0
    n: .word 0
@@ -45,40 +45,36 @@ main:
 .text
 Mult:
    # push the stack
-   SUB sp, sp, #16  //sub 4+4 because we are storing 2 parameters
+   SUB sp, sp, #12  //sub 4+4 because we are storing 2 parameters
    STR lr, [sp]
    STR r4, [sp, #4]
-   STR r5, [sp, #8]
-   STR r7, [sp, #12]
-
-   #MOV r4, r0  //to safely store the input in r4
-   #MOV r5, r1
+   STR r8, [sp, #8]
    
-   # if (r1==1) return r0
-   CMP r1, #0
+   MOV r4, r0  //to safely store the input in r4
+   MOV r5, r1
+   
+   # if (n==1) return r4 (m)
+   CMP r5, #1
    BNE Else  // if not equal go into recursion
-	#MOV r0, r7
+	MOV r0, r4
 	B Return  //base case ends recursion
 
    # else
    Else:
-	SUB r1, r1, #1  //next value in r0
-	ADD r7, r4, r7 //store in r0 m plus m
-	BL Mult  //return value in r0
-	#ADD r0, r4, r6
-	MOV r1, r7
+	SUB r1, r5, #1
+	BL Mult
+	ADD r0, r4, r0  //store in r0 what came back from the sum program plus r4
 	B Return
 
-	Endif:  //never used but still putting it in code for stuctured code
+   Endif:  //never used but still putting it in code for stuctured code
 
    # pop the stack
    Return:  //put a return label
    LDR lr, [sp]
    LDR r4, [sp, #4]
    LDR r5, [sp, #8]
-   LDR r7, [sp, #12]
-   ADD sp, sp, #16
+   ADD sp, sp, #12
    MOV pc, lr
 .data
 
-# END summation
+# END multiplication

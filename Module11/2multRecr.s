@@ -1,3 +1,10 @@
+#
+# File Name: 2multRecr.s
+# Author: Anna Leonardi
+# Date: 11/12/2023
+# Purpose: Q1 Module11, a program to calculate multiplication using successive addition with recursion. Eg, 5*4 is 5+5+5+5.
+#
+
 .text
 .global main
 main:

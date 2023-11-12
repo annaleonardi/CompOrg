@@ -11,18 +11,22 @@ main:
    SUB sp, sp, #4
    STR lr, [sp]
 
+   # prompt and read first input M
    LDR r0, =promptM
    BL printf
    LDR r0, =format
    LDR r1, =m
    BL scanf
 
+   # prompt and read first input N
    LDR r0, =promptN
    BL printf
    LDR r0, =format
    LDR r1, =n
    BL scanf
 
+
+   # load values of two inputs in r0 and r1 to pass through the Mult fucntion
    LDR r0, =m
    LDR r0, [r0]
    LDR r1, =n
@@ -57,23 +61,23 @@ Mult:
    STR r4, [sp, #4]
    STR r8, [sp, #8]
    
-   MOV r4, r0  //to safely store the input in r4
-   MOV r5, r1
+   MOV r4, r0  // safely store the input M in r4
+   MOV r5, r1  // safely stoe the input N in r5
    
-   # if (n==1) return r4 (m)
-   CMP r5, #1
+   # if (n==1) return r4 (M)
+   CMP r5, #1  //compare M with 1
    BNE Else  // if not equal go into recursion
 	MOV r0, r4
 	B Return  //base case ends recursion
 
    # else
    Else:
-	SUB r1, r5, #1
+	SUB r1, r5, #1  // subtract 1 from N
 	BL Mult
 	ADD r0, r4, r0  //store in r0 what came back from the sum program plus r4
 	B Return
 
-   Endif:  //never used but still putting it in code for stuctured code
+   Endif:  
 
    # pop the stack
    Return:  //put a return label

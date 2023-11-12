@@ -23,8 +23,8 @@ main:
    MOV pc, lr
 
 .data
-   prompt: .asciz "\nEnter a value to sum to: "
-   output: .asciz "\nYour summation is %d\n"
+   prompt: .asciz "\nEnter a value to calcuate it's Fibonacci sequence: "
+   output: .asciz "\nYour result is: %d\n"
    format: .asciz "%d"
    number: .word 0
 
@@ -41,17 +41,23 @@ Fib:
    
    MOV r4, r0  //to safely store the input in r4
    
-   # if (n==0) return 0
-   CMP r4, #0
-   BNE Else  // if not equal go into recursion
-	MOV r0, #0
-	B Return  //base case ends recursion
+   # if (n==n-1) || (n==0) || (n==1) return n
+   CMP r7, #1
+   BNE Else
+	CMP r4, #1
+	BGT Else  // if not equal go into recursion
+	   CMP r4, #0
+	   BLT Else  // if not equal go into recursion
+	      B Return  //base case ends recursion
 
    # else
    Else:
 	SUB r0, r4, #1
-	BL Sum
-	ADD r0, r4, r0  //store in r0 what came back from the sum program plus r4
+	SUB r1, r4, #2
+	ADD r7, r7, #1
+	BL Fib
+	ADD r0, r0, r1
+	#ADD r0, r4, r0  //store in r0 what came back from the sum program plus r4
 	B Return
 
    Endif:  //never used but still putting it in code for stuctured code
@@ -64,4 +70,4 @@ Fib:
    MOV pc, lr
 .data
 
-# END summation
+# END fibonacci

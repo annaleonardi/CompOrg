@@ -1,17 +1,24 @@
 .text
 .global main
 main:
-   SUB sp, sp, #4
+   SUB sp, sp, #20
    STR lr, [sp, #0]
+   STR r4, [sp, #4]
+   STR r5, [sp, #8]
+   STR r6, [sp, #12]
+   STR r7, [sp, #16]
+
 
    # initialize by prompting user, answer in r4
    LDR r0, =prompt
    BL printf
+
    LDR r0, =input
    LDR r1, =num
    BL scanf
-   LDR r1, =num
-   LDR r4, [r1, #0]
+
+   LDR r4, =num
+   LDR r4, [r4, #0]
 
    StartSentinelLoop:
 	MOV r0, #-1
@@ -34,7 +41,7 @@ main:
 
 	   StartCountingLoop:
 	   CMP r4, r0
-	   BLE EndCountingLoop
+	   BLT EndCountingLoop
 
 		# Loop Block
 		ADD r5, r5, r0
@@ -75,10 +82,17 @@ main:
 
    MOV r0, #0
    LDR lr, [sp, #0]
-   ADD sp, sp, #4
+   LDR r4, [sp, #4]
+   LDR r5, [sp, #8]
+   LDR r6, [sp, #12]
+   LDR r7, [sp, #16]
+   ADD sp, sp, #20
    MOV pc, lr
 
 .data
    prompt:   .asciz "Please enter a number to sum: \n"
    badInput: .asciz "Your input value must be > 0 \n"
+   output: .asciz "The summation from 1 to n is %d\n"
+   input: .asciz "%d"
+   num: .word 0
 # End main

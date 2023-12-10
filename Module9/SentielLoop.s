@@ -1,3 +1,4 @@
+# Correct code from lecture 9 example
 # Initialize: 		inputValue = get input from user
 # StartLabel: 		startLoop:
 # Condition Check: 		if (inputValue == -1) branch endLoop

@@ -1,3 +1,4 @@
+# Example from lecture
 .text
 .global main
 
